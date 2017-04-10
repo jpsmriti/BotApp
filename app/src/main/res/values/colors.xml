@@ -13,4 +13,6 @@
     <color name="answerBubble">#46CEC5</color>
     <color name="answerButton">#7A8DAA</color>
     <color name="buttonHolder">#ffffff</color>
+    <color name="login_bg">#0095FF</color>
+    <color name="white">#FFFFFF</color>
 </resources>
