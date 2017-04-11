@@ -29,6 +29,7 @@
 
         <EditText
             android:id="@+id/message"
+            android:text="who is vikram?"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -46,7 +47,7 @@
         android:layout_above="@id/msg_container"
         android:layout_alignParentTop="true"
         android:divider="@null"
-        android:layoutAnimation="@anim/layout_animator"
+        android:stackFromBottom="true"
         android:scrollbars="none"
         android:transcriptMode="alwaysScroll" />
 </RelativeLayout>
