@@ -12,12 +12,10 @@ import android.widget.Toast;
 
 import com.fi.botapp.R;
 import com.fi.botapp.utils.Logger;
-import com.fi.botapp.utils.User;
 import com.fi.botapp.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,7 +35,6 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        initFirebaseService();
     }
 
     @OnClick(R.id.email_sign_in_button)
@@ -51,13 +48,12 @@ public class LoginActivity extends BaseActivity {
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(email, password)
+        getAuthInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Logger.D("signIn:onComplete:" + task.isSuccessful());
                         Utils.hideProgressDialog();
-
                         if (task.isSuccessful()) {
                             onAuthSuccess(task.getResult().getUser());
                         } else {
@@ -70,46 +66,7 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.sign_up)
     protected void signUp(View v) {
-        Logger.D("signUp");
-        Utils.hideKeyboard(LoginActivity.this, mSignUp);
-        if (!validateForm()) {
-            return;
-        }
-
-        Utils.showProgressDialog(LoginActivity.this);
-        String email = mEmailField.getText().toString();
-        String password = mPasswordField.getText().toString();
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Logger.D("createUser:onComplete:" + task.isSuccessful());
-                        Utils.hideProgressDialog();
-
-                        if (task.isSuccessful()) {
-                            onAuthSuccess(task.getResult().getUser());
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Sign Up Failed",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    private void onAuthSuccess(FirebaseUser user) {
-        String username = usernameFromEmail(user.getEmail());
-        writeNewUser(user.getUid(), username, user.getEmail());
-        startActivity(new Intent(LoginActivity.this, ChatActivity.class));
-        finish();
-    }
-
-    private String usernameFromEmail(String email) {
-        if (email.contains("@")) {
-            return email.split("@")[0];
-        } else {
-            return email;
-        }
+        startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
     }
 
     private boolean validateForm() {
@@ -129,12 +86,6 @@ public class LoginActivity extends BaseActivity {
         }
 
         return result;
-    }
-
-    private void writeNewUser(String userId, String name, String email) {
-        Logger.D("writing new user : " + name + " - " + email);
-        User user = new User(name, email);
-        mDatabase.child("users").child(userId).setValue(user);
     }
 
     @Override

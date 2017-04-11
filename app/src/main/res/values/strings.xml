@@ -2,8 +2,10 @@
     <string name="app_name">BotApp</string>
 
     <!-- Strings related to login -->
+    <string name="prompt_username">Username</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="prompt_message">Enter your message and send.</string>
     <string name="action_sign_in">Sign In</string>
     <string name="action_sign_up">Sign Up</string>
