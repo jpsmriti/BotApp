@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,41 +19,29 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class LoginActivity extends BaseActivity {
 
-    private AutoCompleteTextView mEmailField;
-    private EditText mPasswordField;
-    private Button mSignInButton;
-    private TextView mSignUp;
+    @Bind(R.id.emailid_edittext)
+    protected AutoCompleteTextView mEmailField;
+    @Bind(R.id.password)
+    protected EditText mPasswordField;
+    @Bind(R.id.sign_up)
+    protected TextView mSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         initFirebaseService();
-
-        mEmailField = (AutoCompleteTextView) findViewById(R.id.emailid_edittext);
-        mPasswordField = (EditText) findViewById(R.id.password);
-        mSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mSignUp = (TextView) findViewById(R.id.sign_up);
-
-        mSignUp.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.hideKeyboard(LoginActivity.this, mSignUp);
-                signUp();
-            }
-        });
-
-        mSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
     }
 
-    private void signIn() {
+    @OnClick(R.id.email_sign_in_button)
+    protected void signIn(View v) {
         Logger.D("signIn");
         if (!validateForm()) {
             return;
@@ -82,8 +68,10 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    private void signUp() {
+    @OnClick(R.id.sign_up)
+    protected void signUp(View v) {
         Logger.D("signUp");
+        Utils.hideKeyboard(LoginActivity.this, mSignUp);
         if (!validateForm()) {
             return;
         }

@@ -24,41 +24,44 @@ import ai.api.RequestExtras;
 import ai.api.model.AIContext;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ChatActivity extends BaseActivity {
 
-    private ListView bubbleList;
+    @Bind(R.id.bubbleList)
+    protected ListView bubbleList;
+    @Bind(R.id.send)
+    protected Button sendBtn;
+    @Bind(R.id.message)
+    protected EditText messageBox;
+
     private ArrayList<ChatMsg> chatMessages = new ArrayList<>();
     private ListAdapter mListAdapter;
-    private Button sendBtn;
-    private EditText messageBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_chat);
+        ButterKnife.bind(this);
         initApiService();
 
-        bubbleList = (ListView) findViewById(R.id.bubbleList);
-        messageBox = (EditText) findViewById(R.id.message);
-        sendBtn = (Button) findViewById(R.id.send);
         Utils.hideKeyboard(ChatActivity.this, messageBox);
 
         mListAdapter = new ListAdapter(this, R.layout.bubblelist, chatMessages);
         bubbleList.setAdapter(mListAdapter);
+    }
 
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String tempMsg = messageBox.getText().toString();
-                if (Utils.checkForInternet(ChatActivity.this) &&
-                        !TextUtils.isEmpty(tempMsg) &&
-                        !tempMsg.equalsIgnoreCase(" ")) {
-                    refreshList(tempMsg, true);
-                    sendRequest(tempMsg);
-                }
-            }
-        });
+    @OnClick(R.id.send)
+    protected void sendMessage(View v){
+        String tempMsg = messageBox.getText().toString();
+        if (Utils.checkForInternet(ChatActivity.this) &&
+                !TextUtils.isEmpty(tempMsg) &&
+                !tempMsg.equalsIgnoreCase(" ")) {
+            refreshList(tempMsg, true);
+            sendRequest(tempMsg);
+        }
     }
 
     @Override
