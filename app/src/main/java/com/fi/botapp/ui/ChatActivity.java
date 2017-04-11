@@ -10,18 +10,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.fi.botapp.R;
+import com.fi.botapp.utils.ChatMsg;
 import com.fi.botapp.utils.Logger;
 import com.fi.botapp.utils.Utils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import ai.api.AIServiceException;
-import ai.api.GsonFactory;
 import ai.api.RequestExtras;
 import ai.api.model.AIContext;
 import ai.api.model.AIResponse;
@@ -29,44 +26,43 @@ import ai.api.model.Result;
 
 public class ChatActivity extends BaseActivity {
 
-    ListView bubbleList;
-    ArrayList<String> chatMessages = new ArrayList<>();
-    ListAdapter mListAdapter;
-    Button sendBtn;
-    EditText messageBox;
+    private ListView bubbleList;
+    private ArrayList<ChatMsg> chatMessages = new ArrayList<>();
+    private ListAdapter mListAdapter;
+    private Button sendBtn;
+    private EditText messageBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_chat);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initService();
 
-        bubbleList = (ListView)findViewById(R.id.bubbleList);
+        bubbleList = (ListView) findViewById(R.id.bubbleList);
         messageBox = (EditText) findViewById(R.id.message);
         sendBtn = (Button) findViewById(R.id.send);
-
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         mListAdapter = new ListAdapter(this, R.layout.bubblelist, chatMessages);
         bubbleList.setAdapter(mListAdapter);
 
-
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.showShortToast(ChatActivity.this, "processing....");
                 String tempMsg = messageBox.getText().toString();
-                if (!TextUtils.isEmpty(tempMsg) && !tempMsg.equalsIgnoreCase(" ")) {
-                    refreshList(tempMsg);
+                if (Utils.checkForInternet(ChatActivity.this) &&
+                        !TextUtils.isEmpty(tempMsg) &&
+                        !tempMsg.equalsIgnoreCase(" ")) {
+                    refreshList(tempMsg, true);
                     sendRequest(tempMsg);
                 }
             }
         });
     }
 
-    private void refreshList(String newMsg){
-        chatMessages.add(newMsg);
+    private void refreshList(String newMsg, boolean isQuestion) {
+        ChatMsg msgObject = new ChatMsg(newMsg, isQuestion);
+        chatMessages.add(msgObject);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -86,7 +82,6 @@ public class ChatActivity extends BaseActivity {
                 @Override
                 protected Object doInBackground(Object[] objects) {
                     try {
-                        Logger.D("botTask : dib");
                         aiService.resume();
                         processQuery(aiService.textRequest(query, requestExtras));
                     } catch (AIServiceException e) {
@@ -102,28 +97,14 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void processQuery(AIResponse aiResponse) {
-        Logger.D("processQuery " + aiResponse.toString());
-        try {
-            final String jsonResponse = GsonFactory.getGson().toJson(aiResponse);
-            Logger.D("jsonResponse " + jsonResponse);
-            final JSONObject jsonObject = new JSONObject(jsonResponse);
-            final JSONObject jsonObjectResult = jsonObject.getJSONObject("result");
-
-            Logger.D("jsonObject " + jsonObjectResult.toString());
-//            Logger.D("telegram " + jsonObject.getString("result"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         final Result result = aiResponse.getResult();
         final String speech = result.getFulfillment().getSpeech();
-//        final String telegramSpeech = result.getFulfillment().
         Logger.D("result received " + speech);
         onResultReturned(speech);
     }
 
     @Override
     void onResultReturned(String result) {
-        refreshList(result);
+        refreshList(result, false);
     }
 }

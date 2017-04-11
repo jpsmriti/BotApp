@@ -25,7 +25,7 @@ public class Utils {
         imm.hideSoftInputFromWindow(field.getWindowToken(), 0);
     }
 
-    public static void checkForInternet(Context ctx) {
+    public static boolean checkForInternet(Context ctx) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -33,6 +33,7 @@ public class Utils {
         if (!isAvailable) {
             showShortToast(ctx, "Please connect to the Internet !");
         }
+        return isAvailable;
     }
 
     public static void showDialog(Context ctx, Dialog.OnKeyListener listener) {

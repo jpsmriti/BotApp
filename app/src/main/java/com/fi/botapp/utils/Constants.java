@@ -2,6 +2,7 @@ package com.fi.botapp.utils;
 
 public class Constants {
 
+    public static final String APP_ID = "4c53232713ad410aabcc960042b7930f";
     public static final boolean LOG_ENABLED = true;
     public static final int SPLASH_TIME = 500;
     public static final int LOGIN_TIME = 500;

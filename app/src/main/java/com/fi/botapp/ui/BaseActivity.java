@@ -2,6 +2,7 @@ package com.fi.botapp.ui;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.fi.botapp.utils.Constants;
 import com.fi.botapp.utils.Logger;
 
 import ai.api.AIConfiguration;
@@ -17,7 +18,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initService() {
         Logger.D("initService");
         final AIConfiguration.SupportedLanguages lang = AIConfiguration.SupportedLanguages.fromLanguageTag("en");
-        config = new AIConfiguration("4c53232713ad410aabcc960042b7930f",
+        config = new AIConfiguration(
+                Constants.APP_ID,
                 lang,
                 AIConfiguration.RecognitionEngine.System);
         aiService = AIService.getService(this, config);
