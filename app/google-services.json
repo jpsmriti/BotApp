@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "821977612193",
+    "firebase_url": "https://botapp-fddbc.firebaseio.com",
+    "project_id": "botapp-fddbc",
+    "storage_bucket": "botapp-fddbc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821977612193:android:b7ae60d64d64fce9",
+        "android_client_info": {
+          "package_name": "com.fi.botapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821977612193-h760csav2a6i035ccvsok90oa4ev4nju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fi.botapp",
+            "certificate_hash": "38744320a495a28b117e3e01e81433818c82bb57"
+          }
+        },
+        {
+          "client_id": "821977612193-v79u81i09gm2ttr40ms2kujajv3ksotl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiYjuwA4qlpwiAtIji8UeWOnqaNIiHnHs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821977612193-v79u81i09gm2ttr40ms2kujajv3ksotl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

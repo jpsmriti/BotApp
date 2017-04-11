@@ -18,4 +18,5 @@
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="title_activity_blank">BlankActivity</string>
     <string name="login_email">Enter Email-ID</string>
+    <string name="menu_logout">Logout</string>
 </resources>

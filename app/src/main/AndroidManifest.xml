@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fi.botapp">
+    package="com.fi.botapp" >
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -13,12 +13,11 @@
         android:icon="@drawable/chatboticon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppThemeNoBar">
-
+            android:theme="@style/AppThemeNoBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,8 +27,8 @@
         <activity
             android:name=".ui.ChatActivity"
             android:label="@string/title_activity_blank"
-            android:theme="@style/AppThemeNoBar" />
-        <activity android:name=".ui.SignUpActivity"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.SignUpActivity" />
     </application>
 
 </manifest>

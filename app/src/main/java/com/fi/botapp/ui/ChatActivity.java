@@ -3,8 +3,9 @@ package com.fi.botapp.ui;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -36,12 +37,12 @@ public class ChatActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_chat);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        initService();
+        initApiService();
 
         bubbleList = (ListView) findViewById(R.id.bubbleList);
         messageBox = (EditText) findViewById(R.id.message);
         sendBtn = (Button) findViewById(R.id.send);
+        Utils.hideKeyboard(ChatActivity.this, messageBox);
 
         mListAdapter = new ListAdapter(this, R.layout.bubblelist, chatMessages);
         bubbleList.setAdapter(mListAdapter);
@@ -59,6 +60,25 @@ public class ChatActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == R.id.action_logout) {
+            logoutUser();
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private void refreshList(String newMsg, boolean isQuestion) {
         ChatMsg msgObject = new ChatMsg(newMsg, isQuestion);

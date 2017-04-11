@@ -1,6 +1,7 @@
 package com.fi.botapp.utils;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 public class Utils {
+    private static ProgressDialog mProgressDialog;
 
     public static void showShortToast(Context context, String toastMsg){
         Toast.makeText(context, toastMsg, Toast.LENGTH_SHORT).show();
@@ -43,6 +45,22 @@ public class Utils {
         dialog.setOnKeyListener(listener);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
+    }
+
+
+    public static void showProgressDialog(Context ctx) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(ctx);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.show();
+        }
+    }
+
+    public static void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
 }
