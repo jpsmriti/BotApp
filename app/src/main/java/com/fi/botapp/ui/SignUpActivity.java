@@ -1,5 +1,6 @@
 package com.fi.botapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -49,6 +50,14 @@ public class SignUpActivity extends BaseActivity {
             Logger.D("auth null");
         }
         createUser(email, password);
+    }
+
+    @OnClick(R.id.sign_in)
+    protected void signIn(View v) {
+        Logger.D("go back to sign in");
+        Utils.hideKeyboard(SignUpActivity.this, v);
+        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+        finish();
     }
 
     @Override

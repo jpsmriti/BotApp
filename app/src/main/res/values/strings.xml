@@ -8,6 +8,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="prompt_message">Enter your message and send.</string>
     <string name="action_sign_in">Sign In</string>
+    <string name="go_sign_in">Go Back To Sign In</string>
     <string name="action_sign_up">Sign Up</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
