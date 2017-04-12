@@ -28,7 +28,8 @@
             android:name=".ui.ChatActivity"
             android:label="@string/title_activity_blank"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ui.SignUpActivity" />
+        <activity android:name=".ui.SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
