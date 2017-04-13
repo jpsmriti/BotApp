@@ -7,6 +7,7 @@ public class Constants {
     public static final int SPLASH_TIME = 500;
     public static final int LOGIN_TIME = 500;
     public static final String PREFERENCE = "my_app_prefs";
+    public static final int SPEECH_RQST = 1001;
 
     public static final String USER = "username";
     public static final String PASSWORD = "password";
