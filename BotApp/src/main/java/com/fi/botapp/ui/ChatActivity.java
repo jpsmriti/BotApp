@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.fi.botapp.R;
+import com.fi.botapp.network.VolleyCallBack;
+import com.fi.botapp.network.requests.GetRequest;
+import com.fi.botapp.network.requests.PostRequest;
 import com.fi.botapp.utils.ChatMsg;
 import com.fi.botapp.utils.Constants;
 import com.fi.botapp.utils.Logger;
@@ -58,12 +62,35 @@ public class ChatActivity extends BaseActivity {
     @OnClick(R.id.send)
     protected void sendMessage(View v){
         String tempMsg = messageBox.getText().toString();
-        if (Utils.checkForInternet(ChatActivity.this) &&
+        /*if (Utils.checkForInternet(ChatActivity.this) &&
                 !TextUtils.isEmpty(tempMsg) &&
                 !tempMsg.equalsIgnoreCase(" ")) {
             refreshList(tempMsg, true);
             sendRequest(tempMsg);
-        }
+        }*/
+   /*     new GetRequest().getJson("", new VolleyCallBack<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Log.i("@@@", "Success");
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.i("@@@", "Failure");
+            }
+        });*/
+
+        new PostRequest().getJson( new VolleyCallBack<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Log.i("@@@", "Success");
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.i("@@@", "Failure");
+            }
+        });
     }
 
     @OnClick(R.id.speak)
