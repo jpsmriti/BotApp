@@ -10,6 +10,11 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class Utils {
     private static ProgressDialog mProgressDialog;
 
@@ -63,4 +68,13 @@ public class Utils {
         }
     }
 
+    public static String getDateTime(long timestamp) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(timestamp);
+        DateFormat dateFormat = new SimpleDateFormat("\"dd-MM-yyyy", Locale.US);
+        final String date = dateFormat.format(timestamp);
+        DateFormat hoursFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        final String time = hoursFormat.format(timestamp);
+        return date + ", " + time;
+    }
 }

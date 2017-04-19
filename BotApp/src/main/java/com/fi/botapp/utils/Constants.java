@@ -13,8 +13,12 @@ public class Constants {
     public static final String PASSWORD = "password";
     public static final String DUMMY = "dummy";
 
-    public final class TYPES {
-        public static final String A = "a";
-        public static final String B = "b";
+    public final class TAGS {
+        public static final String TIMESTAMP = "timestamp";
+        public static final String RESULT = "result";
+        public static final String SPEECH = "speech";
+        public static final String FULFILLMENT = "fulfillment";
+        public static final String MESSAGES = "messages";
+        public static final String IMAGE_URL = "imageUrl";
     }
 }

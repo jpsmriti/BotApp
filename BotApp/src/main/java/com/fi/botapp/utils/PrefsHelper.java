@@ -2,11 +2,16 @@ package com.fi.botapp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+
+import java.util.UUID;
 
 public class PrefsHelper {
     private static PrefsHelper instance;
 
     private SharedPreferences sharedPrefs;
+    private String BLANK = "";
+    private String SESSION_ID_KEY = "session_id";
 
     public PrefsHelper(final Context context) {
         this.sharedPrefs = context.getSharedPreferences(Constants.PREFERENCE, Context.MODE_PRIVATE);
@@ -59,5 +64,20 @@ public class PrefsHelper {
 
     public double getDoublePref(final String key, final double defaultValue) {
         return Double.longBitsToDouble(sharedPrefs.getLong(key, Double.doubleToLongBits(defaultValue)));
+    }
+
+    public String getSessionId() {
+        String sessionId = sharedPrefs.getString(SESSION_ID_KEY, BLANK);
+        if(!TextUtils.isEmpty(sessionId)) {
+            return sessionId;
+        } else {
+            String value = UUID.randomUUID().toString();
+            sharedPrefs.edit().putString(SESSION_ID_KEY, value).commit();
+            return value;
+        }
+    }
+
+    public void resetSessionId() {
+        sharedPrefs.edit().putString(SESSION_ID_KEY, BLANK).commit();
     }
 }

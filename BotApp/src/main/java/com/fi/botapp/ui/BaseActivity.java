@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.fi.botapp.utils.Constants;
 import com.fi.botapp.utils.Logger;
 import com.fi.botapp.utils.User;
 import com.fi.botapp.utils.Utils;
@@ -17,30 +16,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import ai.api.AIConfiguration;
-import ai.api.AIService;
-
 public abstract class BaseActivity extends AppCompatActivity {
-
-    // API.AI releted
-    abstract void onResultReturned(String result);
-
-    protected AIService aiService;
-    protected AIConfiguration config;
 
     // Firebase related
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-
-    protected void initApiService() {
-        Logger.D("initApiService");
-        final AIConfiguration.SupportedLanguages lang = AIConfiguration.SupportedLanguages.fromLanguageTag("en");
-        config = new AIConfiguration(
-                Constants.APP_ID,
-                lang,
-                AIConfiguration.RecognitionEngine.System);
-        aiService = AIService.getService(this, config);
-    }
 
     protected FirebaseAuth getAuthInstance(){
         if (mAuth == null){
@@ -102,23 +82,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         User user = new User(name, email);
         getDatabaseInstance().child("users").child(userId).setValue(user);
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (aiService != null) {
-            Logger.D("aiService.pause");
-            aiService.pause();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (aiService != null) {
-            Logger.D("aiService.resume");
-            aiService.resume();
-        }
-    }
-
 }

@@ -16,8 +16,9 @@ public class GetRequest extends VolleyController {
     public void getJson(final String searchText, final VolleyCallBack<String> callBack) {
 
         try {
-            String urlEndpoint = "https://api.api.ai/v1/query?v=20150910&query=weather&timezone=Europe/Paris&lang=en&contexts=weather&contexts=europe&latitude=37.459157&longitude=-122.17926&sessionId=1234567890";
+            String urlEndpoint = "https://api.api.ai/v1/query?v=20150910&query="+ searchText+"&timezone=Europe/Paris&lang=en&contexts=weather&contexts=europe&latitude=37.459157&longitude=-122.17926&sessionId=1234567890";
 
+            urlEndpoint = urlEndpoint.replace(" ", "%20");
 
             final HashMap<String, String> headers = new HashMap<String, String>();
             headers.put("Content-Type", "application/json");

@@ -87,10 +87,4 @@ public class LoginActivity extends BaseActivity {
 
         return result;
     }
-
-    @Override
-    void onResultReturned(String result) {
-        // Nothing to do
-    }
 }
-

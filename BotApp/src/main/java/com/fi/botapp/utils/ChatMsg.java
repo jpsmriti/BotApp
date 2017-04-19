@@ -2,27 +2,27 @@ package com.fi.botapp.utils;
 
 public class ChatMsg {
 
-    private String msg;
+    private BotReply message;
     private boolean isQues;
 
-    public ChatMsg(String msg, boolean isQues) {
-        this.msg = msg;
+    public ChatMsg(BotReply msg, boolean isQues) {
+        this.message = msg;
         this.isQues = isQues;
     }
 
-    public String getMsg() {
-        return msg;
+    public BotReply getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(BotReply message) {
+        this.message = message;
     }
 
     public boolean isQues() {
         return isQues;
     }
 
-    public void setIsQuestion(boolean isQuestion) {
-        isQues = isQuestion;
+    public void setQues(boolean ques) {
+        isQues = ques;
     }
 }

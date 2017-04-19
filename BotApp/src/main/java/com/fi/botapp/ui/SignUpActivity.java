@@ -59,9 +59,4 @@ public class SignUpActivity extends BaseActivity {
         startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
         finish();
     }
-
-    @Override
-    void onResultReturned(String result) {
-
-    }
 }
