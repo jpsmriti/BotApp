@@ -44,7 +44,7 @@ public class ChatActivity extends BaseActivity {
         setContentView(R.layout.content_chat);
         ButterKnife.bind(this);
         Utils.hideKeyboard(ChatActivity.this, messageBox);
-        mListAdapter = new ListAdapter(this, R.layout.bubblelist, chatMessages);
+        mListAdapter = new ListAdapter(this, 0, chatMessages);
         bubbleList.setAdapter(mListAdapter);
     }
 
