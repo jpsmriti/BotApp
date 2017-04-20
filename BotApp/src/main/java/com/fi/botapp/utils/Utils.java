@@ -10,19 +10,20 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.Date;
+import java.util.TimeZone;
+
 
 public class Utils {
     private static ProgressDialog mProgressDialog;
 
-    public static void showShortToast(Context context, String toastMsg){
+    public static void showShortToast(Context context, String toastMsg) {
         Toast.makeText(context, toastMsg, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showLongToast(Context context, String toastMsg){
+    public static void showLongToast(Context context, String toastMsg) {
         Toast.makeText(context, toastMsg, Toast.LENGTH_LONG).show();
     }
 
@@ -68,13 +69,18 @@ public class Utils {
         }
     }
 
-    public static String getDateTime(long timestamp) {
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(timestamp);
-        DateFormat dateFormat = new SimpleDateFormat("\"dd-MM-yyyy", Locale.US);
-        final String date = dateFormat.format(timestamp);
-        DateFormat hoursFormat = new SimpleDateFormat("HH:mm", Locale.US);
-        final String time = hoursFormat.format(timestamp);
-        return date + ", " + time;
+    public static String getTime() {
+        String output = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Calendar utcCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            Date utcDate = utcCal.getTime();
+            output = sdf.format(utcDate);
+            Logger.D("time " + output);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return output;
     }
 }

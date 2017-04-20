@@ -55,7 +55,7 @@ public class ChatActivity extends BaseActivity {
                 !TextUtils.isEmpty(tempMsg) &&
                 !tempMsg.equalsIgnoreCase(" ")) {
 
-            BotReply message = new BotReply(String.valueOf(System.currentTimeMillis()), tempMsg, "");
+            BotReply message = new BotReply(Utils.getTime(), tempMsg, "");
             refreshList(message, true);
             sendRequest(tempMsg);
         }
@@ -87,7 +87,7 @@ public class ChatActivity extends BaseActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String speech = result.get(0);
                     Utils.showShortToast(ChatActivity.this, speech);
-                    BotReply message = new BotReply(String.valueOf(System.currentTimeMillis()), speech, "");
+                    BotReply message = new BotReply(Utils.getTime(), speech, "");
                     refreshList(message, true);
                     sendRequest(speech);
                 }
@@ -149,14 +149,6 @@ public class ChatActivity extends BaseActivity {
     public void updateScreen(BotReply parsedData) {
         Logger.D("updateScreen");
         if (parsedData != null) {
-            Logger.D("getTimestamp " + parsedData.getTimestamp());
-            Logger.D("getSpeech " + parsedData.getSpeech());
-            Logger.D("getImageUrl " + parsedData.getImageUrl());
-
-            Logger.D("split Date " + parsedData.getTimestamp().split("T")[0]);
-            Logger.D("split Time " + parsedData.getTimestamp().split("T")[1]);
-            //Logger.D("formatted " + Utils.getDateTime(Long.parseLong(parsedData.getTimestamp())));
-
             refreshList(parsedData, false);
         }
     }

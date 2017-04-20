@@ -2,6 +2,7 @@ package com.fi.botapp.utils;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import com.fi.botapp.ui.ChatActivity;
 
@@ -36,7 +37,10 @@ public class ParserTask extends AsyncTask<Void, Void, Void> {
                 root = new JSONObject(this.jsonData);
             }
             if (root != null && root.has(Constants.TAGS.TIMESTAMP)) {
-                 timestamp = root.getString(Constants.TAGS.TIMESTAMP);
+                 String temp = root.getString(Constants.TAGS.TIMESTAMP);
+                if (!TextUtils.isEmpty(temp)){
+                    timestamp = temp;
+                }
             }
             if (root != null && root.has(Constants.TAGS.RESULT)) {
                 resultObject = root.getJSONObject(Constants.TAGS.RESULT);
@@ -62,7 +66,7 @@ public class ParserTask extends AsyncTask<Void, Void, Void> {
                     }
                 }
             }
-            this.parsedData = new BotReply(timestamp, speechString, imageUrl);
+            this.parsedData = new BotReply(Utils.getTime(), speechString, imageUrl);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -7,6 +7,10 @@
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="3dp"
     android:layout_marginRight="3dp"
+    android:paddingBottom="7dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="7dp"
     android:layout_marginTop="10dp"
     android:gravity="right">
 
@@ -15,7 +19,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/round_ques_bg"
         android:minWidth="100dp">
-
 
         <TextView
             android:id="@+id/text"
@@ -48,6 +51,21 @@
                 android:layout_margin="3dp"
                 android:visibility="gone" />
         </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frameLayout"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+        </LinearLayout>
 
     </RelativeLayout>
 </RelativeLayout>

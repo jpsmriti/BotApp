@@ -2,6 +2,7 @@ package com.fi.botapp.ui;
 
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class ListAdapter extends ArrayAdapter<String> {
     private TextView messageText;
     private ImageView messageImage;
     private ProgressBar imageLoader;
+    private TextView messageTime;
 
     public ListAdapter(Context context, int layout, ArrayList<ChatMsg> dataList) {
         super(context, layout);
@@ -45,8 +47,11 @@ public class ListAdapter extends ArrayAdapter<String> {
         messageText = (TextView) convertView.findViewById(R.id.text);
         messageImage = (ImageView) convertView.findViewById(R.id.image);
         imageLoader = (ProgressBar) convertView.findViewById(R.id.loader);
+        messageTime = (TextView) convertView.findViewById(R.id.timestamp);
 
-        messageText.setText(item.getMessage().getSpeech());
+        String speech = item.getMessage().getSpeech();
+        messageText.setText(!TextUtils.isEmpty(speech)?speech:"Sorry, please be more clear.");
+        messageTime.setText(item.getMessage().getTimestamp());
         if (!item.isQues()) {
             new DownloadImageTask(messageImage, imageLoader,
                     item.getMessage().getImageUrl()).execute();
